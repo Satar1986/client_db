@@ -5,8 +5,8 @@ import java.sql.Statement;
 
 public class Select {
     public static void main( String args[] ) {
-        Connection c ;
-        Statement stmt ;
+        Connection c=null;
+        Statement stmt=null;
 
         try {
             Class.forName("org.postgresql.Driver");

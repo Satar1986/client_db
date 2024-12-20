@@ -1,11 +1,12 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class Insert {
     public static void main(String args[]) {
-        Connection c;
-        Statement stmt;
+        Connection c = null;
+        Statement stmt=null;
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -36,7 +37,7 @@ public class Insert {
             c.close();
         } catch (Exception e) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
-            System.exit(0);
+           System.exit(0);
         }
 
     }
