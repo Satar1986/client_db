@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Select {
     public static void main( String args[] ) {
@@ -15,7 +12,7 @@ public class Select {
                             "postgres", "root");
             System.out.println("Opened database successfully");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
+           try{ stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM client;" );
             while ( rs.next() ) {
                 int id = rs.getInt("id");
@@ -28,14 +25,36 @@ public class Select {
 
                 System.out.println();
             }
+               c.commit();
+               rs.close();
+           }catch (SQLException e){
+               c.rollback();
+               e.printStackTrace();
+           }
             System.out.println("Operation done successfully");
-            rs.close();
-            stmt.close();
-            c.close();
+
+
+
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
+        }finally {
+            if (stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }if (c!=null){
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
         }
 
     }
-}
+
