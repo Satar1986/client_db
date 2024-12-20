@@ -47,12 +47,14 @@ finally {
             if(stmt!=null){
                 try {
                     stmt.close();
+                    System.out.println("Statement it's cloused");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }if (c!=null){
                 try {
                     c.close();
+                    System.out.println("Connection it's cloused");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
