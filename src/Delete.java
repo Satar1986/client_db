@@ -1,8 +1,5 @@
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 
 
 public class Delete {
@@ -17,10 +14,10 @@ public class Delete {
                             "postgres", "root");
             System.out.println("Opened database successfully");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            String sql = "DELETE from client where ID = 4;";
+            try{stmt = c.createStatement();
+            String sql = "DELETE from client where ID = 3;";
             stmt.executeUpdate(sql);
-            c.commit();
+
 
             ResultSet rs = stmt.executeQuery( "SELECT * FROM client;" );
             while ( rs.next() ) {
@@ -36,12 +33,31 @@ public class Delete {
             }
             System.out.println("Operation done successfully");
             rs.close();
-            stmt.close();
-            c.close();
+                c.commit();
+            }catch (SQLException e){
+                c.rollback();
+                e.printStackTrace();
+            }
+
+
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
             System.exit(0);
         }
-
+finally {
+            if(stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }if(c!=null){
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
