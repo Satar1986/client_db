@@ -15,7 +15,7 @@ public class Insert {
                             "postgres", "root");
             System.out.println("Opened database successfully");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
+            try{stmt = c.createStatement();
             String sql = "insert into client (id,name,age) "
                     + "values (1, 'Tom', 20 );";
             stmt.executeUpdate(sql);
@@ -32,14 +32,33 @@ public class Insert {
                     + "values (4, 'Mark', 40 );";
             stmt.executeUpdate(sql);
             System.out.println("Records created successfully");
-            stmt.close();
+
+
             c.commit();
-            c.close();
+
+            }catch (SQLException e){
+                c.rollback();
+                e.printStackTrace();
+            }
         } catch (Exception e) {
             System.err.println( e.getClass().getName()+": "+ e.getMessage() );
            System.exit(0);
         }
-
+finally {
+            if(stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }if (c!=null){
+                try {
+                    c.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
 
