@@ -12,9 +12,8 @@ public class Insert {
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/client",
                             "postgres", "root");
-            c.setAutoCommit(false);
             System.out.println("Opened database successfully");
-
+            c.setAutoCommit(false);
             stmt = c.createStatement();
             String sql = "insert into client (id,name,age) "
                     + "values (1, 'Tom', 20 );";

@@ -15,8 +15,8 @@ public class Delete {
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/client",
                             "postgres", "root");
-            c.setAutoCommit(false);
             System.out.println("Opened database successfully");
+            c.setAutoCommit(false);
             stmt = c.createStatement();
             String sql = "DELETE from client where ID = 4;";
             stmt.executeUpdate(sql);

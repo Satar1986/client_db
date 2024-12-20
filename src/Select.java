@@ -13,9 +13,8 @@ public class Select {
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/client",
                             "postgres", "root");
-            c.setAutoCommit(false);
             System.out.println("Opened database successfully");
-
+            c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM client;" );
             while ( rs.next() ) {

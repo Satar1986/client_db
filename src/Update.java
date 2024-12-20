@@ -13,9 +13,8 @@ public class Update {
             c = DriverManager
                     .getConnection("jdbc:postgresql://localhost:5432/client",
                             "postgres", "root");
-            c.setAutoCommit(false);
             System.out.println("Opened database successfully");
-
+            c.setAutoCommit(false);
             stmt = c.createStatement();
             String sql = "UPDATE client set age = 32 where ID=3;";
             stmt.executeUpdate(sql);
