@@ -17,7 +17,7 @@ public class Update {
             System.out.println("Opened database successfully");
 
             stmt = c.createStatement();
-            String sql = "UPDATE client set age = 32 where ID=4;";
+            String sql = "UPDATE client set age = 32 where ID=3;";
             stmt.executeUpdate(sql);
             c.commit();
 
